@@ -1,6 +1,10 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
+<<<<<<< Updated upstream
 import Navbar from './Navbar/Navbar'
+=======
+import Navbar from './Navbar'
+>>>>>>> Stashed changes
 
 const inter = Inter({ subsets: ['latin'] })
 
