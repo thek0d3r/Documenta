@@ -47,3 +47,8 @@ main{
   left:-25%;
   background: url(../../public/bg-gradient.png);
 }
+
+#logo{
+  position:absolute;
+  top:0;
+}

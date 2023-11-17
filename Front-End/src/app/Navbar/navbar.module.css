@@ -1,9 +1,20 @@
-#profile-button #options{
+#options{
     transition:0.5s;
-    height:0px;
-}
+    display:flex;
+    justify-content: flex-end;
+    position: absolute;
+    top:40%;
+    text-align: center;
+    align-items: center;
+    left:-10%;
+    flex-direction: column;
+    z-index:0;
+    padding: 0 0 10px 0;
+    border-radius:15px;
+    border-top-left-radius: 5px;
+    width:100px;
+    height:150px;
+    color:slategrey;
+    transition:0.5s;
 
-#profile-button:hover #options{
-    transition:0.5s;
-    height:100px;
 }
