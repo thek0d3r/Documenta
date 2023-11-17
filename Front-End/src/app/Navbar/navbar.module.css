@@ -1,0 +1,9 @@
+#profile-button #options{
+    transition:0.5s;
+    height:0px;
+}
+
+#profile-button:hover #options{
+    transition:0.5s;
+    height:100px;
+}

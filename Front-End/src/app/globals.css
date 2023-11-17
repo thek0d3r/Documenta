@@ -41,8 +41,9 @@ main{
   width:100%;
   height:100%;
   filter:blur(400px);
-  opacity:0.6;
+  opacity:0.4;
   top:75%;
+  rotate:25deg;
   left:-25%;
   background: url(../../public/bg-gradient.png);
 }
