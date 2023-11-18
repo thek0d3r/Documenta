@@ -4,7 +4,7 @@ APP_DIR=/root/Documenta
 
 pkill npm
 pkill next
-pkill go
+pkill main
 
 git fetch
 changes=$(git rev-list HEAD...origin/main --count)
@@ -15,9 +15,9 @@ if [ "$changes" -gt 0 ]; then
     cd $APP_DIR/Front-End/
     npm install
     npm run build
-    npm run start &
+    npm run start > /dev/null &
 
     cd $APP_DIR/Backend/
     go mod tidy
-    go run main.go &
+    go run main.go > /dev/null &
 fi
