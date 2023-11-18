@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "../../Navbar/Navbar";
 import SearchCNP from "../../Search/search";
 import uploadImage from "../../../../public/upload.png"
+import downloadImage from "../../../../public/download.png"
 import Image from "next/image";
 
 import { useEffect, useState } from "react";
@@ -32,6 +33,10 @@ export default function Results({params}){
         router.push("/upload"); 
       }    
 
+    function downloadFiles(){
+
+    }
+
     useEffect(()=>{
         if(validareCNP(params.cnp)==false)
             router.replace('/');
@@ -44,7 +49,7 @@ export default function Results({params}){
                             id:json.id,
                             person:json.person,
                         });
-                        console.log(response.body)
+                        console.log(response.json());
                     })
                     console.log(json);
                 });
@@ -61,11 +66,18 @@ export default function Results({params}){
                     <div className="flex w-[100%] justify-center">
                         <SearchCNP/>
                     </div>
-                    <div className="flex w-[80%] flex-row items-center">
+                    <div className="flex w-[90%] flex-row items-center justify-between">
                         <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">,</h3>
-                        <div className="flex flex-row items-center gap-[10px] hover:cursor-pointer" onClick={goToUpload}>
-                            <Image src={uploadImage} width={25} height={25} alt="Upload files" className=""/>
-                            <span className="text-black text-lg">Încărcați documente</span>
+                        <div className="bg-blue-900 flex flex-col items-center gap-[5px] rounded-lg p-[20px]">
+                            <span className="text-neutral-200 text-xl">Panou administrativ</span>
+                            <div className="flex flex-row text-white items-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]" onClick={goToUpload}>
+                                <Image src={uploadImage} width={25} height={25} alt="Urcare fișier"/>
+                                <span className="text-lg">Încărcați documente</span>
+                            </div>
+                            <div className="flex flex-row text-white items-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]">
+                                <Image src={downloadImage} width={25} height={25} alt="Descărcare fișier" onClick={downloadFiles}/>
+                                <span className="text-lg">Descărcați documente</span>
+                            </div>
                         </div>
                     </div>
                     {/* <section id="documents" className="flex flex-col mx-10 justify-center">
