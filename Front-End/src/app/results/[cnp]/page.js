@@ -2,6 +2,9 @@
 import { useRouter } from "next/navigation";
 import Navbar from "../../Navbar/Navbar";
 import SearchCNP from "../../Search/search";
+import uploadImage from "../../../../public/upload.png"
+import Image from "next/image";
+
 import { useEffect, useState } from "react";
 
 
@@ -44,11 +47,14 @@ export default function Results({params}){
         return false;
     }
     
+    function goToUpload(){
+        router.push("/upload"); 
+      }    
+
     useEffect(()=>{
         if(validareCNP(params.cnp)==false)
             router.replace('/');
     },[])
-    if(params.cnp==5041209351576)
         return(
             <div className="flex flex-row justify-start">
                 <div id="background-gradient" className='z-0'></div>
@@ -57,8 +63,12 @@ export default function Results({params}){
                     <div className="flex w-[100%] justify-center">
                         <SearchCNP/>
                     </div>
-                    <div className="flex w-[80%] flex-col justify-center">
+                    <div className="flex w-[80%] flex-row items-center">
                         <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">{lookUp.nume}, {lookUp.prenume}</h3>
+                        <div className="flex flex-row items-center gap-[10px] hover:cursor-pointer" onClick={goToUpload}>
+                            <Image src={uploadImage} width={25} height={25} alt="Upload files" className=""/>
+                            <span className="text-black text-lg">Încărcați documente</span>
+                        </div>
                     </div>
                     <section id="documents" className="flex flex-col mx-10 justify-center">
                         {Object.keys(lookUp.documents).map((e, index)=>{
