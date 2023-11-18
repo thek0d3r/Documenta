@@ -43,7 +43,7 @@ export default function Results({params}){
                         setLookUp({
                             id:json.id,
                             person:json.person,
-                            documents:response.json()..documents
+                            documents:response.json().documents
                         });
                         console.log({
                             id:json.id,
