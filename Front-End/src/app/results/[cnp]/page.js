@@ -68,7 +68,7 @@ export default function Results({params}){
                             <span className="text-black text-lg">Încărcați documente</span>
                         </div>
                     </div>
-                    <section id="documents" className="flex flex-col mx-10 justify-center">
+                    {/* <section id="documents" className="flex flex-col mx-10 justify-center">
                         {Object.keys(lookUp.person.documents).map((e, index)=>{
                             if(index%2==0)
                                 return(
@@ -84,7 +84,7 @@ export default function Results({params}){
                                 </div>
                             )
                         })}
-                    </section>
+                    </section> */}
                 </section>
             </div>
         )
