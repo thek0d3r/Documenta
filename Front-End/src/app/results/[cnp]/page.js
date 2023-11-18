@@ -62,29 +62,29 @@ export default function Results({params}){
                         <SearchCNP/>
                     </div>
                     <div className="flex w-[80%] flex-row items-center">
-                        <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">{lookUp.nume}, {lookUp.prenume}</h3>
+                        <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">{lookUp.person.prenume}, {lookUp.person.nume}</h3>
                         <div className="flex flex-row items-center gap-[10px] hover:cursor-pointer" onClick={goToUpload}>
                             <Image src={uploadImage} width={25} height={25} alt="Upload files" className=""/>
                             <span className="text-black text-lg">Încărcați documente</span>
                         </div>
                     </div>
-                    {/* <section id="documents" className="flex flex-col mx-10 justify-center">
+                    <section id="documents" className="flex flex-col mx-10 justify-center">
                         {Object.keys(lookUp.person.documents).map((e, index)=>{
                             if(index%2==0)
                                 return(
                                     <div key={index} className="flex w-[90%]">
                                         <div className="flex items-center justify-center px-5 rounded-lg w-[40px] h-[40px] text-center mr-[5px] text-blue-900 bg-neutral-200 mb-[5px] text-lg">{index}</div>
-                                        <div className="flex items-center px-5 rounded-lg  h-[40px] text-blue-900 bg-neutral-200 mb-[5px] text-lg">{lookUp.person.documents[e]["document_name"]}</div>
+                                        <div className="flex items-center px-5 rounded-lg  h-[40px] text-blue-900 bg-neutral-200 mb-[5px] text-lg">{lookUp.documents[e]["document_name"]}</div>
                                     </div>
                                 )
                             return(
                                 <div key={index} className="flex w-[90%]">
                                         <div className="flex items-center justify-center px-5 rounded-lg w-[40px] h-[40px] text-center mr-[5px] text-neutral-100 bg-blue-900 mb-[5px] text-lg">{index}</div>
-                                        <div className="flex items-center px-5 rounded-lg  h-[40px] text-neutral-100 bg-blue-900 mb-[5px] text-lg">{lookUp.person.documents[e]["document_name"]}</div>
+                                        <div className="flex items-center px-5 rounded-lg  h-[40px] text-neutral-100 bg-blue-900 mb-[5px] text-lg">{lookUp.documents[e]["document_name"]}</div>
                                 </div>
                             )
                         })}
-                    </section> */}
+                    </section>
                 </section>
             </div>
         )
