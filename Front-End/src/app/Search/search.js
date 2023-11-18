@@ -53,7 +53,7 @@ export default function SearchCNP(){
 
     return(
         <div className="flex align-center mt-5 overflow-hidden">
-            <input className="rounded-lg text-black focus:outline-0 outline-0 focus:border-2 focus:border-gray-200 px-[10px] border-2 border-gray-200 min-w-[300px] w-[45%] h-[50px] text-xl" onKeyDown={handleInput} onPaste={handleInput} ref={cnpInput} placeholder="Caută după CNP..."></input>
+            <input className="rounded-lg text-black focus:display-none outline-0 focus:border-2 focus:border-gray-200 px-[10px] border-2 border-gray-200 min-w-[300px] w-[45%] h-[50px] text-xl" onKeyDown={handleInput} onPaste={handleInput} ref={cnpInput} placeholder="Caută după CNP..."></input>
             <Link href="/results">
               <button onClick={()=>{validareCNP(cnpInput.current.value)}} className="h-[100%] w-[20px]">
                 <Image src={searchIcon} height={20} width={20} className="opacity-60 relative left-[-30px]"/>
