@@ -45,6 +45,11 @@ export default function Results({params}){
                             person:json.person,
                             documents:response.json().documents
                         });
+                        console.log({
+                            id:json.id,
+                            person:json.person,
+                            documents:response.json().documents
+                        })
                     })
                     console.log(json);
                 });
