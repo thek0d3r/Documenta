@@ -1,10 +1,10 @@
 #!/bin/bash
 
 APP_DIR=/root/Documenta
-GO_APP_NAME="main"
 
-pkill -f "npm start"
-pkill -f "$GO_APP_NAME"
+pkill npm
+pkill next
+pkill go
 
 git fetch
 changes=$(git rev-list HEAD...origin/main --count)
@@ -19,5 +19,5 @@ if [ "$changes" -gt 0 ]; then
 
     cd $APP_DIR/Backend/
     go mod tidy
-    go run $GO_APP_NAME &
+    go run main.go &
 fi
