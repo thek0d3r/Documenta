@@ -11,9 +11,9 @@ var DB *sql.DB
 
 func init() {
 	opts := immudb.DefaultOptions()
-	opts.Username = "documenta"
+	opts.Username = "documenta2"
 	opts.Password = "*PfDl{tQtpRJ.em1%"
-	opts.Database = "documenta"
+	opts.Database = "defaultdb"
 
 	DB = stdlib.OpenDB(opts)
 
