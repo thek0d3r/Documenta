@@ -2,14 +2,13 @@
 
 APP_DIR=/root/Documenta
 
-pkill npm
-pkill next
-pkill main
-
 git fetch
 changes=$(git rev-list HEAD...origin/main --count)
 
 if [ "$changes" -gt 0 ]; then
+    pkill npm
+    pkill next
+    pkill main
     git pull
 
     cd $APP_DIR/Front-End/
