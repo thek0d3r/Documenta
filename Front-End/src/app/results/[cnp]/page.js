@@ -62,7 +62,7 @@ export default function Results({params}){
                         <SearchCNP/>
                     </div>
                     <div className="flex w-[80%] flex-row items-center">
-                        <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">{lookUp.person.prenume}, {lookUp.person.nume}</h3>
+                        <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">,</h3>
                         <div className="flex flex-row items-center gap-[10px] hover:cursor-pointer" onClick={goToUpload}>
                             <Image src={uploadImage} width={25} height={25} alt="Upload files" className=""/>
                             <span className="text-black text-lg">Încărcați documente</span>
