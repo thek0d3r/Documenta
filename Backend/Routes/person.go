@@ -12,9 +12,7 @@ func RegisterPeopleRoutes(app fiber.Router) {
 
 	app.Get("/:person_id/documents/:document_id", people.GetDocument)
 
-	app.Post("/:person_id/document", func(c *fiber.Ctx) error {
-		return fiber.ErrBadRequest
-	})
+	app.Post("/:person_id/document", people.UploadDocument)
 
 	app.Delete("/:person_id/documents/:document_id", func(c *fiber.Ctx) error {
 		return fiber.ErrConflict

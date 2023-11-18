@@ -1,8 +1,11 @@
 package people
 
 import (
+	"crypto/sha256"
 	database "documenta/Database"
+	"encoding/hex"
 	"fmt"
+	"io"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -173,4 +176,41 @@ func GetDocument(c *fiber.Ctx) error {
 
 	return c.Send(documentData)
 
+}
+
+func UploadDocument(c *fiber.Ctx) error {
+	personStr := c.Params("person_id")
+	file, err := c.FormFile("fileUpload")
+
+	u1, err := uuid.Parse(personStr)
+	if err != nil {
+		return fiber.ErrBadRequest
+	}
+	personID, _ := u1.MarshalBinary()
+
+	buffer, err := file.Open()
+
+	documentID, _ := uuid.New().MarshalBinary()
+
+	h := sha256.New()
+	if _, err := io.Copy(h, buffer); err != nil {
+		return fiber.ErrBadRequest
+	}
+
+	document := &Document{
+		ID:            documentID,
+		Person:        personID,
+		Document_name: file.Filename,
+		Document_hash: hex.EncodeToString(h.Sum(nil)),
+	}
+
+	_, err = database.DB.Query("INSERT INTO documents (id, document_hash, document_name, person) VALUES (cast(? AS UUID), ?, ?, cast(? AS UUID))", documentID, document.Document_hash, document.Document_name, personID)
+	if err != nil {
+		return fiber.ErrBadRequest
+	}
+
+	return c.JSON(fiber.Map{
+		"document": document,
+		"id":       documentID,
+	})
 }
