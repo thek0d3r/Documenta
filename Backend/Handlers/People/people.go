@@ -11,7 +11,7 @@ import (
 )
 
 type Person struct {
-	ID  	uint64	`json:"id" field:"id"`
+	ID  	[]byte	`json:"id" field:"id"`
 	CNP 	uint64	`json:"cnp" field:"cnp"`
 	Nume 	string	`json:"nume" field:"nume"`
 	Prenume	string	`json:"prenume" field:"prenume"`
@@ -20,7 +20,7 @@ type Person struct {
 
 type Document struct {
 	ID				[]byte		`json:"id" field:"id"`
-	Person 			uint64 		`json:"person" field:"person"`
+	Person 			[]byte 		`json:"person" field:"person"`
 	Document_name 	string 		`json:"document_name" field:"document_name"`
 	Document_hash	string		`json:"document_hash" field:"document_hash"`
 }
@@ -97,8 +97,10 @@ func GetPerson(c *fiber.Ctx) error {
 		return fiber.ErrNotFound
 	}
 
+	u, _ := uuid.ParseBytes(person.ID)
 	return c.JSON(fiber.Map{
 		"person": person,
+		"id": u.String(),
 	})
 	
 }
@@ -106,14 +108,18 @@ func GetPerson(c *fiber.Ctx) error {
 func GetDocuments(c *fiber.Ctx) error {
 	personStr := c.Params("person_id")
 
-
 	fmt.Println(personStr)
 
-
-	person, err := strconv.ParseInt(personStr, 10, 64)
-
-	rows, err := database.DB.Query("SELECT * FROM documents WHERE person=?", person)
+	u, err := uuid.Parse(personStr)
 	if err != nil {
+		return fiber.ErrBadRequest
+	}
+	b, _ := u.MarshalBinary()
+
+
+	rows, err := database.DB.Query("SELECT * FROM documents WHERE person=cast(? AS UUID)", b)
+	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 
@@ -126,8 +132,6 @@ func GetDocuments(c *fiber.Ctx) error {
 		if err != nil {
 			break
 		}
-
-		fmt.Println(document)
 
 		u, _ := uuid.ParseBytes(document.ID)
 		documents[u.String()] = document
