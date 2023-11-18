@@ -4,7 +4,7 @@ APP_DIR=/root/Documenta
 
 pkill npm
 pkill next
-pkill go
+pkill main
 
 git fetch
 changes=$(git rev-list HEAD...origin/main --count)
