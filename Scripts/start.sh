@@ -5,7 +5,7 @@ APP_DIR=/root/Documenta
 cd $APP_DIR/Front-End/
 
 npm install 
-npm run build
+npm run build # more delulu
 npm start > /dev/null &
 
 cd $APP_DIR/Backend/
