@@ -10,26 +10,7 @@ import { useEffect, useState } from "react";
 
 export default function Results({params}){
     const router=useRouter();
-    const [lookUp, setLookUp]=useState({
-        nume:"MANESCU",
-        prenume:"RĂZVAN-FABIAN",
-        uuid:"56416dad-561d-4d57-b084-4cb93ab64715",
-        documents:
-        {"a4824f73-eb19-45be-b5f4-722cc9e8e925":
-            {
-                "id":"YTQ4MjRmNzMtZWIxOS00NWJlLWI1ZjQtNzIyY2M5ZThlOTI1",
-                "person":"dGVzdF9oYXNo",
-                "document_name":"test_document",
-                "document_hash":"56416dad-561d-4d57-b084-4cb93ab64715"
-            },
-        "b60d9975-42b9-4155-ab96-33e1e8974f3a":
-            {
-                "id":"YjYwZDk5NzUtNDJiOS00MTU1LWFiOTYtMzNlMWU4OTc0ZjNh",
-                "person":"dGVzdF9oYXNo",
-                "document_name":"test_document",
-                "document_hash":"56416dad-561d-4d57-b084-4cb93ab64715"
-        }}}
-    );
+    const [lookUp, setLookUp]=useState({});
 
     function validareCNP(cnp){
         cnp=cnp.replace(/[^0-9]/gi,'');
@@ -58,7 +39,13 @@ export default function Results({params}){
             const res=fetch(`https://documenta.cyberdojotm.ro/api/people/${params.cnp}`);
             res.then((e)=>{
                 e.json().then((json)=>{
-                    setLookUp(json);
+                    const fetch2=fetch(`https://documenta.cyberdojotm.ro/api/people/${json.id}/documents`).then(response=>{
+                        setLookUp({
+                            id:json.id,
+                            person:json.person,
+                            documents:response.json().documents
+                        });
+                    })
                     console.log(json);
                 });
             }).catch(err=>{
