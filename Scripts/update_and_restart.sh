@@ -12,7 +12,7 @@ if [ "$changes" -gt 0 ]; then
     cd Front-End/
     npm install
     npm run build
-    npm run start &
+    npm run start
     cd ../Backend
     go mod tidy
     go run Backend/main.go &
