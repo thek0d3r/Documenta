@@ -9,4 +9,4 @@ npm install  # Replace with your build and deployment commands
 npm run start
 cd ../Backend
 go mod tidy
-go run Backend/main.go
+go run main.go
