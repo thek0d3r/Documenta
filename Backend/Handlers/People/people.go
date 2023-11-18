@@ -1,9 +1,15 @@
 package people
 
 import (
+	"bytes"
+	"crypto/sha256"
 	database "documenta/Database"
+	"encoding/hex"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"path"
 	"regexp"
 	"strconv"
 
@@ -164,13 +170,70 @@ func GetDocument(c *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 
-	documentData := []byte("ABCDEFGH") //TODO: read document from disk
+	cwd, _ := os.Getwd()
+	f, err := os.Open(path.Join(cwd, "uploads", u1.String()))
+	defer f.Close()
+	if err != nil {
+		return fiber.ErrInternalServerError
+	}
 
-	contentType := http.DetectContentType(documentData)
+	buf := &bytes.Buffer{}
+	io.Copy(buf, f)
+
+	contentType := http.DetectContentType(buf.Bytes())
 	c.Set("Content-Type", contentType)
 	c.Set("Content-Disposition", fmt.Sprintf("attachment; filename=%v", document.Document_name))
 	c.Set("Content-Transfer-Encoding", "binary")
 
-	return c.Send(documentData)
+	return c.SendStream(f)
+}
 
+func UploadDocument(c *fiber.Ctx) error {
+	personStr := c.Params("person_id")
+	file, err := c.FormFile("fileUpload")
+
+	u1, err := uuid.Parse(personStr)
+	if err != nil {
+		return fiber.ErrBadRequest
+	}
+	personID, _ := u1.MarshalBinary()
+
+	buffer, err := file.Open()
+
+	documentUUID := uuid.New()
+	documentID, _ := documentUUID.MarshalBinary()
+
+	h := sha256.New()
+	if _, err := io.Copy(h, buffer); err != nil {
+		return fiber.ErrBadRequest
+	}
+
+	document := &Document{
+		ID:            documentID,
+		Person:        personID,
+		Document_name: file.Filename,
+		Document_hash: hex.EncodeToString(h.Sum(nil)),
+	}
+
+	_, err = database.DB.Query("INSERT INTO documents (id, document_hash, document_name, person) VALUES (cast(? AS UUID), ?, ?, cast(? AS UUID))", documentID, document.Document_hash, document.Document_name, personID)
+	if err != nil {
+		return fiber.ErrBadRequest
+	}
+
+	cwd, _ := os.Getwd()
+
+	finalFile, err := os.OpenFile(path.Join(cwd, "uploads", documentUUID.String()), os.O_CREATE|os.O_RDWR, 600)
+	if err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	io.Copy(finalFile, buffer)
+
+	finalFile.Close()
+	buffer.Close()
+
+	return c.JSON(fiber.Map{
+		"document": document,
+		"id":       documentUUID.String(),
+	})
 }

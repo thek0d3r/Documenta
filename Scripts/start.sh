@@ -5,8 +5,9 @@ APP_DIR=/root/Documenta
 cd $APP_DIR
 
 cd Front-End/
-npm install  # Replace with your build and deployment commands
-npm run start
+npm install 
+npm run build
+npm run start &
 cd ../Backend
 go mod tidy
-go run main.go
+go run main.go &
