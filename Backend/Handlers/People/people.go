@@ -170,15 +170,12 @@ func GetDocument(c *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 
-
 	cwd, _ := os.Getwd()
-	f, err := os.Open(path.Join(cwd, "uploads", u1.String())
+	f, err := os.Open(path.Join(cwd, "uploads", u1.String()))
 	defer f.Close()
 	if err != nil {
 		return fiber.ErrInternalServerError
 	}
-
-
 
 	buf := &bytes.Buffer{}
 	io.Copy(buf, f)
