@@ -2,7 +2,6 @@ package routes
 
 import (
 	people "documenta/Handlers/People"
-
 	"github.com/gofiber/fiber/v2"
 )
 
