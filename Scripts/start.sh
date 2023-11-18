@@ -2,12 +2,12 @@
 
 APP_DIR=/root/Documenta
 
-cd $APP_DIR
+cd $APP_DIR/Front-End/
 
-cd Front-End/
 npm install 
 npm run build
-npm run start &
-cd ../Backend
+npm start &
+
+cd $APP_DIR/Backend/
 go mod tidy
 go run main.go &
