@@ -1,0 +1,9 @@
+basePath: /
+host: documenta.cyberdojotm.ro:3000
+info:
+  contact: {}
+  description: Main Documenta API
+  title: Documenta API
+  version: "1.0"
+paths: {}
+swagger: "2.0"

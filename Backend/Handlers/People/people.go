@@ -3,6 +3,7 @@ package people
 import (
 	database "documenta/Database"
 	"fmt"
+	"net/http"
 	"regexp"
 	"strconv"
 
@@ -11,18 +12,17 @@ import (
 )
 
 type Person struct {
-	ID  	[]byte	`json:"id" field:"id"`
-	CNP 	uint64	`json:"cnp" field:"cnp"`
-	Nume 	string	`json:"nume" field:"nume"`
-	Prenume	string	`json:"prenume" field:"prenume"`
-
+	ID      []byte `json:"id" field:"id"`
+	CNP     uint64 `json:"cnp" field:"cnp"`
+	Nume    string `json:"nume" field:"nume"`
+	Prenume string `json:"prenume" field:"prenume"`
 }
 
 type Document struct {
-	ID				[]byte		`json:"id" field:"id"`
-	Person 			[]byte 		`json:"person" field:"person"`
-	Document_name 	string 		`json:"document_name" field:"document_name"`
-	Document_hash	string		`json:"document_hash" field:"document_hash"`
+	ID            []byte `json:"id" field:"id"`
+	Person        []byte `json:"person" field:"person"`
+	Document_name string `json:"document_name" field:"document_name"`
+	Document_hash string `json:"document_hash" field:"document_hash"`
 }
 
 const control string = "279146358279"
@@ -50,10 +50,9 @@ func validateCNP(cnp string) bool {
 		return false
 	}
 
-
 	controlSum := 0
-	
-	for i := 0; i<12; i++ {
+
+	for i := 0; i < 12; i++ {
 		cnpDigit, _ := strconv.Atoi(cnp[i:i])
 		controlDigit, _ := strconv.Atoi(control[i:i])
 		controlSum += cnpDigit * controlDigit
@@ -69,7 +68,6 @@ func validateCNP(cnp string) bool {
 		return false
 	}
 
-
 	return true
 }
 
@@ -80,7 +78,7 @@ func GetPerson(c *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 
-	cnp, err:= strconv.ParseInt(cnpStr, 10, 64)
+	cnp, err := strconv.ParseInt(cnpStr, 10, 64)
 	if err != nil {
 		return fiber.ErrBadRequest
 	}
@@ -90,7 +88,6 @@ func GetPerson(c *fiber.Ctx) error {
 	person := &Person{}
 
 	err = row.Scan(&person.ID, &person.CNP, &person.Nume, &person.Prenume)
-	
 
 	if err != nil {
 		fmt.Println(err)
@@ -100,22 +97,19 @@ func GetPerson(c *fiber.Ctx) error {
 	u, _ := uuid.ParseBytes(person.ID)
 	return c.JSON(fiber.Map{
 		"person": person,
-		"id": u.String(),
+		"id":     u.String(),
 	})
-	
+
 }
 
 func GetDocuments(c *fiber.Ctx) error {
 	personStr := c.Params("person_id")
-
-	fmt.Println(personStr)
 
 	u, err := uuid.Parse(personStr)
 	if err != nil {
 		return fiber.ErrBadRequest
 	}
 	b, _ := u.MarshalBinary()
-
 
 	rows, err := database.DB.Query("SELECT * FROM documents WHERE person=cast(? AS UUID)", b)
 	if err != nil {
@@ -127,7 +121,7 @@ func GetDocuments(c *fiber.Ctx) error {
 
 	for rows.Next() {
 		document := &Document{}
-		
+
 		err = rows.Scan(&document.ID, &document.Document_name, &document.Person, &document.Document_hash)
 		if err != nil {
 			break
@@ -140,4 +134,43 @@ func GetDocuments(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"documents": documents,
 	})
+}
+
+func GetDocument(c *fiber.Ctx) error {
+	personStr := c.Params("person_id")
+	documentStr := c.Params("document_id")
+
+	u1, err := uuid.Parse(documentStr)
+	if err != nil {
+		return fiber.ErrBadRequest
+	}
+	id, _ := u1.MarshalBinary()
+
+	u2, err := uuid.Parse(personStr)
+	if err != nil {
+		return fiber.ErrBadRequest
+	}
+	personID, _ := u2.MarshalBinary()
+
+	row := database.DB.QueryRow("SELECT * FROM documents WHERE id=cast(? AS UUID) AND person=cast(? AS UUID)", id, personID)
+	if row.Err() != nil {
+		fmt.Println(err)
+		return fiber.ErrBadRequest
+	}
+
+	document := &Document{}
+	err = row.Scan(&document.ID, &document.Document_name, &document.Person, &document.Document_hash)
+	if err != nil {
+		return fiber.ErrBadRequest
+	}
+
+	documentData := []byte("ABCDEFGH") //TODO: read document from disk
+
+	contentType := http.DetectContentType(documentData)
+	c.Set("Content-Type", contentType)
+	c.Set("Content-Disposition", fmt.Sprintf("attachment; filename=%v", document.Document_name))
+	c.Set("Content-Transfer-Encoding", "binary")
+
+	return c.Send(documentData)
+
 }
