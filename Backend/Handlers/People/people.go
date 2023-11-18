@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"path"
 	"regexp"
 	"strconv"
 
@@ -167,15 +169,20 @@ func GetDocument(c *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 
-	documentData := []byte("ABCDEFGH") //TODO: read document from disk
 
-	contentType := http.DetectContentType(documentData)
+	cwd, _ := os.Getwd()
+	f, err := os.Open(path.Join(cwd, "uploads", u1.String())
+	defer f.Close()
+	if err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	contentType := http.DetectContentType(f)
 	c.Set("Content-Type", contentType)
 	c.Set("Content-Disposition", fmt.Sprintf("attachment; filename=%v", document.Document_name))
 	c.Set("Content-Transfer-Encoding", "binary")
 
-	return c.Send(documentData)
-
+	return c.SendStream(f)
 }
 
 func UploadDocument(c *fiber.Ctx) error {
@@ -190,7 +197,8 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	buffer, err := file.Open()
 
-	documentID, _ := uuid.New().MarshalBinary()
+	documentUUID := uuid.New()
+	documentID, _ := documentUUID.MarshalBinary()
 
 	h := sha256.New()
 	if _, err := io.Copy(h, buffer); err != nil {
@@ -209,8 +217,20 @@ func UploadDocument(c *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 
+	cwd, _ := os.Getwd()
+
+	finalFile, err := os.OpenFile(path.Join(cwd, "uploads", documentUUID.String()), os.O_CREATE|os.O_RDWR, 600)
+	if err != nil {
+		return fiber.ErrInternalServerError
+	}
+
+	io.Copy(finalFile, buffer)
+
+	finalFile.Close()
+	buffer.Close()
+
 	return c.JSON(fiber.Map{
 		"document": document,
-		"id":       documentID,
+		"id":       documentUUID.String(),
 	})
 }
