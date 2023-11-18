@@ -1,6 +1,4 @@
 import './globals.css'
-import Navbar from './Navbar/Navbar'
-import Link from 'next/link'
 
 export const metadata = {
   title: 'Documenta',
@@ -10,11 +8,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>    
-        <div id="background-gradient" className='z-0'></div>
-        <Navbar/>  
+      <body>   
         {children}
-        </body>
+      </body>
     </html>
   )
 }
