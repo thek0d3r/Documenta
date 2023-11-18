@@ -1,6 +1,7 @@
 package people
 
 import (
+	"bytes"
 	"crypto/sha256"
 	database "documenta/Database"
 	"encoding/hex"
@@ -177,7 +178,12 @@ func GetDocument(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	contentType := http.DetectContentType(f)
+
+
+	buf := &bytes.Buffer{}
+	io.Copy(buf, f)
+
+	contentType := http.DetectContentType(buf.Bytes())
 	c.Set("Content-Type", contentType)
 	c.Set("Content-Disposition", fmt.Sprintf("attachment; filename=%v", document.Document_name))
 	c.Set("Content-Transfer-Encoding", "binary")
