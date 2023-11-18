@@ -11,14 +11,6 @@ export default function SearchCNP(){
     const cnpInput = useRef();
     const router = useRouter();
 
-    // async function getData(cnp){
-    //   const res = await fetch(`https://documenta.cyberdojotm.ro/api/people/${cnp}}`, {mode:"no-cors"}).then((e)=>{
-    //     router.push(`/results/${cnp}`);
-    //   }).catch((err)=>{
-    //     console.error(err);
-    //   })
-    // }
-
     function validareCNP(cnp){
       cnpInput.current.value=cnpInput.current.value.replace(/[^0-9]/gi,'');
       const CONTROL=cnp%10;

@@ -44,12 +44,14 @@ export default function Results({params}){
             const res=fetch(`https://documenta.cyberdojotm.ro/api/people/${params.cnp}`);
             res.then((e)=>{
                 e.json().then((json)=>{
-                    const fetch2=fetch(`https://documenta.cyberdojotm.ro/api/people/${json.id}/documents`).then(response=>{
-                        setLookUp({
-                            id:json.id,
-                            person:json.person,
-                        });
-                        console.log(response.json());
+                    fetch(`https://documenta.cyberdojotm.ro/api/people/${json.id}/documents`).then(response=>{
+                        response.json().then(json2=>{
+                            setLookUp({
+                                id:json.id,
+                                person:json.person,
+                                documents:json2.documents
+                            })
+                        })
                     })
                     console.log(json);
                 });
@@ -67,7 +69,7 @@ export default function Results({params}){
                         <SearchCNP/>
                     </div>
                     <div className="flex w-[90%] flex-row items-center justify-between">
-                        <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">,</h3>
+                        <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">{lookUp.person.prenume}, {lookUp.person.nume}</h3>
                         <div className="bg-blue-900 flex flex-col items-center gap-[5px] rounded-lg p-[20px]">
                             <span className="text-neutral-200 text-xl">Panou administrativ</span>
                             <div className="flex flex-row text-white items-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]" onClick={goToUpload}>
@@ -80,7 +82,7 @@ export default function Results({params}){
                             </div>
                         </div>
                     </div>
-                    {/* <section id="documents" className="flex flex-col mx-10 justify-center">
+                    <section id="documents" className="flex flex-col mx-10 justify-center">
                         {Object.keys(lookUp.person.documents).map((e, index)=>{
                             if(index%2==0)
                                 return(
@@ -96,7 +98,7 @@ export default function Results({params}){
                                 </div>
                             )
                         })}
-                    </section> */}
+                    </section>
                 </section>
             </div>
         )
