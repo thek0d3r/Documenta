@@ -57,7 +57,10 @@ export default function Results({params}){
         else{
             const res=fetch(`https://documenta.cyberdojotm.ro/api/people/${params.cnp}`);
             res.then((e)=>{
-                console.log(e.json());
+                e.json().then((json)=>{
+                    setLookUp(json);
+                    console.log(json);
+                });
             }).catch(err=>{
                 console.error(err);
             })
