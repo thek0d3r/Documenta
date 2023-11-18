@@ -1,8 +1,6 @@
-import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from './Navbar/Navbar'
-
-const inter = Inter({ subsets: ['latin'] })
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Documenta',
@@ -12,9 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div id="background-gradient"></div>
-        <Navbar/>
+      <body>    
+        <div id="background-gradient" className='z-0'></div>
+        <Navbar/>  
+        {children}
         </body>
     </html>
   )
