@@ -44,9 +44,7 @@ export default function Results({params}){
                             id:json.id,
                             person:json.person,
                         });
-                        console.log({
-                            response.body
-                        })
+                        console.log(response.body)
                     })
                     console.log(json);
                 });
