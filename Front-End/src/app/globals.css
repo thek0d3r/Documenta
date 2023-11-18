@@ -54,3 +54,12 @@ main{
   position:absolute;
   top:0;
 }
+
+
+input::-moz-focus-inner {
+  border: 0 !important;
+}
+
+input:focus, input:hover, input:active {
+   outline: 0 !important;
+}

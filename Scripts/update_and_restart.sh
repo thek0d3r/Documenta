@@ -1,19 +1,23 @@
 #!/bin/bash
 
 APP_DIR=/root/Documenta
+GO_APP_NAME="main"
 
-cd $APP_DIR
+pkill -f "npm start"
+pkill -f "$GO_APP_NAME"
 
 git fetch
 changes=$(git rev-list HEAD...origin/main --count)
 
 if [ "$changes" -gt 0 ]; then
     git pull
-    cd Front-End/
+
+    cd $APP_DIR/Front-End/
     npm install
     npm run build
     npm run start &
-    cd ../Backend
+
+    cd $APP_DIR/Backend/
     go mod tidy
-    go run Backend/main.go &
+    go run $GO_APP_NAME &
 fi
