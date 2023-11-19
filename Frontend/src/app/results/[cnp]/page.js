@@ -38,7 +38,7 @@ export default function Results({params}){
 
     function downloadFiles(){
         Object.keys(lookUp.documents).forEach((e)=>{
-            console.log(e["id"]);
+            console.log(e, e["id"]);
             try{
                 fetch(`/api/people/${lookUp.id}/documents/${e["id"]}`).then(response=>{
 
