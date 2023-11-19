@@ -148,12 +148,14 @@ func GetDocument(c *fiber.Ctx) error {
 
 	u1, err := uuid.Parse(documentStr)
 	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 	id, _ := u1.MarshalBinary()
 
 	u2, err := uuid.Parse(personStr)
 	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 	personID, _ := u2.MarshalBinary()
@@ -167,6 +169,7 @@ func GetDocument(c *fiber.Ctx) error {
 	document := &Document{}
 	err = row.Scan(&document.ID, &document.Document_name, &document.Person, &document.Document_hash)
 	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 
