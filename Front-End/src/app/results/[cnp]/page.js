@@ -78,7 +78,7 @@ export default function Results({params}){
                         <SearchCNP/>
                     </div>
                     <div className="flex w-[90%] flex-row items-center justify-between">
-                        <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">{lookUp.person?.prenume}, {lookUp.person?.nume}</h3>
+                        <h3 className="text-black text-5xl font-['Helvetica'] font-bold m-10">{lookUp.person?.prenume}, {lookUp.person?.nume}</h3>
                         <div className="bg-blue-900 flex flex-col items-center gap-[5px] rounded-lg p-[20px]">
                             <span className="text-neutral-200 text-xl">Panou administrativ</span>
                             <div className="flex flex-row text-neutral-200 items-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]" onClick={goToUpload}>
@@ -91,7 +91,7 @@ export default function Results({params}){
                             </div>
                         </div>
                     </div>
-                    <section id="documents" className="flex flex-col mx-10 justify-center bg-gray-100 p-5">
+                    <section id="documents" className="flex flex-col mx-10 justify-center bg-gray-100 p-[5px] rounded-lg mt-[10px]">
                         {(lookUp.documents!=undefined)? Object.keys(lookUp.documents).map((e, index)=>{
                             let docName="document_name";
                             console.log(e, e["id"], e.docName, lookUp.documents, lookUp.documents[`${e}`][`${docName}`]);
