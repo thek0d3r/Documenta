@@ -2,6 +2,8 @@
 
 APP_DIR=/root/Documenta
 
+cd $APP_DIR
+
 git fetch
 changes=$(git rev-list HEAD...origin/main --count)
 
