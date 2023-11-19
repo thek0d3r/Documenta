@@ -17,7 +17,7 @@ export default function LoginPage(){
                     <Link href='/'>
                         <Image src={backIcon} width={20} height={20} className="opacity-30 hover:cursor-pointer"/>
                     </Link>
-                    <span>Adaugă deținător</span>
+                    <span>Logare</span>
                 </div>
                 <input type='text' placeholder="Nume de utilizator" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
                 <input type='password' placeholder="Parolă" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
