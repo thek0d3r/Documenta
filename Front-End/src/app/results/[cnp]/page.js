@@ -97,7 +97,7 @@ export default function Results({params}){
                     <section id="documents" className="flex flex-col mx-10 justify-center">
                         {(lookUp.documents!=undefined)? Object.keys(lookUp.documents).map((e, index)=>{
                             let docName="document_name";
-                            console.log(e, e["id"], e.docName);
+                            console.log(e, e["id"], e.docName, lookUp.documents);
                             if(index%2==0)
                                 return(
                                     <div key={index} className="flex w-[90%]">
