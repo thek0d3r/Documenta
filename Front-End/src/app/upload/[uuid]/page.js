@@ -20,9 +20,9 @@ export default function UploadPage({params}){
         formData.append('file', file);
 
         try {
-            await axios.post(`https://documenta.coderdojotm.ro/api/people/${params.uuid}/document`, formData, {
+            await axios.post(`/api/people/${params.uuid}/document`, formData, {
                 headers: {
-                    'Content-Type': 'fileUpload',
+                    'Content-Type': "fileUpload",
                 },
             });
             console.log('File uploaded successfully');
