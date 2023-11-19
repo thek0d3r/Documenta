@@ -6,7 +6,7 @@ pkill npm
 pkill next
 pkill main
 
-cd $APP_DIR/Front-End/
+cd $APP_DIR/Frontend/
 npm install
 npm run build
 npm run start > /dev/null &
