@@ -194,7 +194,6 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	u1, err := uuid.Parse(personStr)
 	if err != nil {
-		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 	personID, _ := u1.MarshalBinary()
@@ -206,6 +205,7 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	h := sha256.New()
 	if _, err := io.Copy(h, buffer); err != nil {
+		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 
