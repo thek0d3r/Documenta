@@ -189,7 +189,9 @@ func GetDocument(c *fiber.Ctx) error {
 	c.Set("Content-Disposition", fmt.Sprintf("attachment; filename=%v", document.Document_name))
 	c.Set("Content-Transfer-Encoding", "binary")
 
-	return c.SendStream(f)
+	f.Close()
+
+	return c.SendFile(path.Join(cwd, "../../documents", u1.String()))
 }
 
 func UploadDocument(c *fiber.Ctx) error {
