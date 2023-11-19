@@ -224,6 +224,7 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	finalFile, err := os.OpenFile(path.Join(cwd, "../../documents", documentUUID.String()), os.O_CREATE|os.O_RDWR, 600)
 	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrInternalServerError
 	}
 
