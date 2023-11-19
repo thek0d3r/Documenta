@@ -13,13 +13,14 @@ export default function UploadPage({params}){
     
     function handleFile(e){
         setFile(e.target.files[0]);
+        console.log(e.target.files[0]);
     }
     async function sendFormToServer(){
         const formData = new FormData();
         formData.append('fileUpload', file);
         formData.append('person_id', params.uuid);
         try {
-            await axios.post(`https://documenta.coderdojotm.com/api/people/${params.uuid}/document`, formData, {
+            await axios.post(`/api/people/${params.uuid}/document`, formData, {
                 headers: {
                     'Content-Type': "multipart/form-data",
                 },
