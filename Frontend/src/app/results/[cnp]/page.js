@@ -68,7 +68,7 @@ export default function Results({params}){
     },[])
     function downloadFile(docUUID){
         try{
-            fetch(`api/people/${lookUp.id}/documents/${docUUID}`)
+            fetch(`/api/people/${lookUp.id}/documents/${docUUID}`)
         }
         catch{
             console.log('Error');
