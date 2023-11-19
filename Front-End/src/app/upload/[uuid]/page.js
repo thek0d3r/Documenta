@@ -17,18 +17,19 @@ export default function UploadPage({params}){
     }
     async function sendFormToServer(){
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('fileUpload', file);
+        console.log(formData);
 
-        try {
-            await axios.post(`/api/people/${params.uuid}/document`, formData, {
-                headers: {
-                    'Content-Type': "fileUpload",
-                },
-            });
-            console.log('File uploaded successfully');
-        } catch (error) {
-            console.error('Error uploading file:', error);
-        }
+        // try {
+        //     await axios.post(`/api/people/${params.uuid}/document`, formData, {
+        //         headers: {
+        //             'Content-Type': "multipart/form-data",
+        //         },
+        //     });
+        //     console.log('File uploaded successfully');
+        // } catch (error) {
+        //     console.error('Error uploading file:', error);
+        // }
     };
     return(
         <section className="w-[100vw] h-[100vh] flex flex-col items-center justify-center gap-[20px]">
