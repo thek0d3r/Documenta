@@ -1,9 +1,9 @@
 "use client"
 import Image from "next/image";
-import Logo from '../../../public/logo.svg'
+import Logo from '../../../../public/logo.svg'
 <Image src={Logo} width={250} height={250} alt="Logo" className="p-0 px-[10px] m-0 mt-[10px] top-50 saturate-0 invert brightness-100 drop-shadow-lg"/>
 import Navbar from "../../Navbar/Navbar"
-import backIcon from '../../../public/back.png'
+import backIcon from '../../../../public/back.png'
 import Link from "next/link";
 import axios from "axios";
 import { useState } from "react";
