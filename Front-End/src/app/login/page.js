@@ -17,10 +17,10 @@ export default function LoginPage(){
                     <Link href='/'>
                         <Image src={backIcon} width={20} height={20} className="opacity-30 hover:cursor-pointer"/>
                     </Link>
+                    <span>Adaugă deținător</span>
                 </div>
-                <input type='text' placeholder="Nume" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
-                <input type='text' placeholder="Prenume" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
-                <input type='password' placeholder="CNP" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
+                <input type='text' placeholder="Nume de utilizator" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
+                <input type='password' placeholder="Parolă" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
                 <div className="w-[100%] h-[20px] m-5 flex items-center justify-end px-5">
                     <button className="rounded-lg text-black bg-neutral-200 hover:text-neutral-200 hover:bg-blue-900 p-[5px] px-10">Submit</button>
                 </div>
