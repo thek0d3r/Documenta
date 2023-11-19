@@ -2,7 +2,7 @@
 
 APP_DIR=/root/Documenta
 
-cd $APP_DIR/Front-End/
+cd $APP_DIR/Frontend/
 
 npm install 
 npm run build # more delulu

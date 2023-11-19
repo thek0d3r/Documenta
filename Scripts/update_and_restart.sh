@@ -11,7 +11,7 @@ if [ "$changes" -gt 0 ]; then
     pkill main
     git pull
 
-    cd $APP_DIR/Front-End/
+    cd $APP_DIR/Frontend/
     npm install
     npm run build
     npm run start > /dev/null &
