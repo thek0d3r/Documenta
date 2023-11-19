@@ -243,8 +243,11 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	_, err = io.CopyN(finalFile, buffer, file.Size)
 	if err != nil {
-		fmt.Println(err)
-		return fiber.ErrInternalServerError
+		if err != io.EOF {
+			fmt.Println(err)
+			return fiber.ErrInternalServerError
+		}
+
 	}
 
 	finalFile.Close()
