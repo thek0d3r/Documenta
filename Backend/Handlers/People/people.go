@@ -207,6 +207,10 @@ func UploadDocument(c *fiber.Ctx) error {
 	personID, _ := u1.MarshalBinary()
 
 	buffer, err := file.Open()
+	if err != nil {
+		fmt.Println(err)
+		return fiber.ErrInternalServerError
+	}
 
 	documentUUID := uuid.New()
 	documentID, _ := documentUUID.MarshalBinary()
@@ -237,7 +241,11 @@ func UploadDocument(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	io.Copy(finalFile, buffer)
+	_, err = io.Copy(finalFile, buffer)
+	if err != nil {
+		fmt.Println(err)
+		return fiber.ErrInternalServerError
+	}
 
 	finalFile.Close()
 	buffer.Close()
