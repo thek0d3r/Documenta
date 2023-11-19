@@ -216,6 +216,12 @@ func UploadDocument(c *fiber.Ctx) error {
 	documentID, _ := documentUUID.MarshalBinary()
 
 	h := sha256.New()
+	_, err = buffer.Seek(0, io.SeekStart)
+	if err != nil {
+		fmt.Println("Error resetting buffer position:", err)
+    	return fiber.ErrBadRequest
+	}
+
 	if _, err := io.Copy(h, buffer); err != nil {
 		return fiber.ErrBadRequest
 	}
