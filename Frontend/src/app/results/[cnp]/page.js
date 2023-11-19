@@ -68,7 +68,13 @@ export default function Results({params}){
     },[])
     function downloadFile(docUUID){
         try{
-            fetch(`/api/people/${lookUp.id}/documents/${docUUID}`)
+            fetch(`/api/people/${lookUp.id}/documents/${docUUID}`).then(response=>{
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `${lookUp.documents.docUUID["document_name"]}`);
+                link.click();
+            })
         }
         catch{
             console.log('Error');
@@ -92,7 +98,7 @@ export default function Results({params}){
                                     if(index%2==0)
                                         return(
                                             <div key={index} className="flex w-[90%]">
-                                                <div className="flex items-center justify-center rounded-lg w-[40px] h-[40px] border-2 border-gray-300 text-center 
+                                                <div className="flex items-center justify-center rounded-lg w-[40px] h-[40px] min-w-[40px] min-h-[40px] border-2 border-gray-300 text-center 
                                                 mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={()=>downloadFile(`${e}`)}>
                                                     <Image src={downloadImage} width={20} height={20}/>
                                                 </div>
@@ -101,7 +107,7 @@ export default function Results({params}){
                                         )
                                     return(
                                         <div key={index} className="flex w-[90%]">
-                                                <div className="flex items-center justify-center rounded-lg w-[40px] h-[40px] border-2 border-gray-300 text-center 
+                                                <div className="flex items-center justify-center rounded-lg w-[40px] h-[40px] min-w-[40px] min-h-[40px] border-2 border-gray-300 text-center 
                                                 mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={()=>downloadFile(`${e}`)}>
                                                     <Image src={downloadImage} width={20} height={20}/>
                                                 </div>
