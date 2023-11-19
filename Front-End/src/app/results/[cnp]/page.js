@@ -12,15 +12,15 @@ import { useEffect, useState } from "react";
 export default function Results({params}){
     const router=useRouter();
     const [lookUp, setLookUp]=useState({
-    //     person:{
-    //         id:"NmNlYjRiN2EtNTMyNi00ZTRlLWFlMTEtOGY5ZDNkYmZlMjUy",
-    //         cnp:"5040525350048",
-    //         nume:"Szabo",
-    //         prenume:"Aleks"
-    //     },
-    //     id:"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252",
-    //     "documents":{"cfc15005-af51-4632-9bd6-d5eca9f6d17b":{"id":"Y2ZjMTUwMDUtYWY1MS00NjMyLTliZDYtZDVlY2E5ZjZkMTdi","person":"VEVTVF9OQU1F","document_name":"TEST_HASH","document_hash":"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252"}}
-    // 
+        // person:{
+        //     id:"NmNlYjRiN2EtNTMyNi00ZTRlLWFlMTEtOGY5ZDNkYmZlMjUy",
+        //     cnp:"5040525350048",
+        //     nume:"Szabo",
+        //     prenume:"Aleks"
+        // },
+        // id:"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252",
+        // "documents":{"cfc15005-af51-4632-9bd6-d5eca9f6d17b":{"id":"Y2ZjMTUwMDUtYWY1MS00NjMyLTliZDYtZDVlY2E5ZjZkMTdi","person":"VEVTVF9OQU1F","document_name":"TEST_HASH","document_hash":"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252"}}
+    
     });
 
     function validareCNP(cnp){
@@ -63,13 +63,15 @@ export default function Results({params}){
                             })
                         })
                     })
-                    console.log(json);
                 });
             }).catch(err=>{
                 console.error(err);
             })
         }
     },[])
+    useEffect(()=>{
+        console.log(lookUp);
+    }, lookUp)
         return(
             <div className="flex flex-row justify-start">
                 <div id="background-gradient" className='z-0'></div>
@@ -82,12 +84,12 @@ export default function Results({params}){
                         <h3 className="text-black text-3xl font-['Helvetica'] font-bold m-10">{lookUp.person.prenume}, {lookUp.person.nume}</h3>
                         <div className="bg-blue-900 flex flex-col items-center gap-[5px] rounded-lg p-[20px]">
                             <span className="text-neutral-200 text-xl">Panou administrativ</span>
-                            <div className="flex flex-row text-white items-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]" onClick={goToUpload}>
-                                <Image src={uploadImage} width={25} height={25} alt="Urcare fișier"/>
+                            <div className="flex flex-row text-neutral-200 items-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]" onClick={goToUpload}>
+                                <Image src={uploadImage} width={25} height={25} alt="Urcare fișier" className="mix-blend-color-burn"/>
                                 <span className="text-lg">Încărcați documente</span>
                             </div>
-                            <div className="flex flex-row text-white items-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]">
-                                <Image src={downloadImage} width={25} height={25} alt="Descărcare fișier" onClick={downloadFiles}/>
+                            <div className="flex flex-row text-neutral-200 items-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]" onClick={downloadFiles}>
+                                <Image src={downloadImage} width={25} height={25} alt="Descărcare fișier" className="mix-blend-color-burn"/>
                                 <span className="text-lg">Descărcați documente</span>
                             </div>
                         </div>

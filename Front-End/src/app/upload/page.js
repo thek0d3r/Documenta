@@ -1,9 +1,12 @@
 "use client"
 import Image from "next/image";
 import Logo from '../../../public/logo.svg'
+<Image src={Logo} width={250} height={250} alt="Logo" className="p-0 px-[10px] m-0 mt-[10px] top-50 saturate-0 invert brightness-100 drop-shadow-lg"/>
 import Navbar from "../Navbar/Navbar"
+import backIcon from '../../../public/back.png'
+import Link from "next/link";
 
-export default function UploadPage(){
+export default function UploadPage({props}){
 
     function handleFile(e){
         console.log(e.target.files);
@@ -12,12 +15,13 @@ export default function UploadPage(){
         const res = fetch('documenta.cyberdojotm.ro:3000/people/')
     }
     return(
-        <section className="w-[100vw] h-[100vh] bg-blue-900 flex flex-col items-center justify-center gap-[20px]">
-            <div id="background-gradient" className='z-0 invert'></div>
-            <Image src={Logo} width={250} height={250} alt="Logo" className="p-0 px-[10px] m-0 mt-[10px] top-50 saturate-0 invert brightness-100"/>
-            <div className="bg-neutral-200 flex flex-col items-center justify-center py-5 gap-[5px] rounded-lg">
-                <input type='text' placeholder="CNP-ul deținătorului" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
-                <input type='text' placeholder="Numele documentului" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg"></input>
+        <section className="w-[100vw] h-[100vh] flex flex-col items-center justify-center gap-[20px]">
+            <div id="background-gradient-2" className='z-0 invert'></div>
+          
+            <div className="bg-neutral-100 drop-shadow-2xl flex flex-col items-center justify-center py-5 gap-[5px] rounded-lg">
+                <Link href="/" className="w-[20px] h-[20px] m-5">
+                        <Image src={backIcon} width={20} height={20} className="opacity-30"/>
+                </Link>
                 <input type='file' onCapture={handleFile} placeholder="" className="min-w-[200px] w-[90%] h-[50px] p-[5px] text-black rounded-lg text-lg"></input>
                 <select className="min-w-[200px] w-[90%] h-[35px] text-black focus:outline-0 border-2 border-neutral-200 rounded-lg text-lg">
                     <option value="carte de identitate">Carte de identitate</option>
@@ -30,7 +34,7 @@ export default function UploadPage(){
                     <option value="certificat">Declarație de avere</option>
                 </select>
                     <button onClick={sendFormToServer}>
-
+                        
                     </button>
             </div>
         </section>
