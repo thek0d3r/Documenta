@@ -194,6 +194,7 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	u1, err := uuid.Parse(personStr)
 	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 	personID, _ := u1.MarshalBinary()
