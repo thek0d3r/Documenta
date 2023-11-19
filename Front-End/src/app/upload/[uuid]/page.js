@@ -19,7 +19,7 @@ export default function UploadPage({params}){
         formData.append('fileUpload', file);
         formData.append('person_id', params.uuid);
         try {
-            await axios.post(`/api/people/${params.uuid}/document`, formData, {
+            await axios.post(`https://documenta.coderdojotm.com/api/people/${params.uuid}/document`, formData, {
                 headers: {
                     'Content-Type': "multipart/form-data",
                 },
