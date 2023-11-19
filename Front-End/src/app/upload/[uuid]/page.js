@@ -4,7 +4,6 @@ import Logo from '../../../../public/logo.svg'
 import Navbar from "../../Navbar/Navbar"
 import backIcon from '../../../../public/back.png'
 import Link from "next/link";
-import axios from "axios";
 import { useState } from "react";
 
 export default function UploadPage({params}){
@@ -20,15 +19,15 @@ export default function UploadPage({params}){
         formData.append('fileUpload', file);
         formData.append('person_id', params.uuid);
         try {
-            await axios.post(`/api/people/${params.uuid}/document`, formData, {
-                headers: {
-                    'Content-Type': "multipart/form-data",
-                },
+            await fetch('http://localhost:8080/upload', {
+              method: 'POST',
+              body: formData,
             });
+      
             console.log('File uploaded successfully');
-        } catch (error) {
+          } catch (error) {
             console.error('Error uploading file:', error);
-        }
+          }
     };
     return(
         <section className="w-[100vw] h-[100vh] flex flex-col items-center justify-center gap-[20px]">
