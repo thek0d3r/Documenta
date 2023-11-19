@@ -160,7 +160,7 @@ func GetDocument(c *fiber.Ctx) error {
 	}
 	personID, _ := u2.MarshalBinary()
 
-	row := database.DB.QueryRow("SELECT * FROM documents WHERE id=cast(? AS UUID) AND person=cast(? AS UUID)", id, personID)
+	row := database.DB.QueryRow("SELECT id, document_name, person, docment_hash FROM documents WHERE id=cast(? AS UUID) AND person=cast(? AS UUID)", id, personID)
 	if row.Err() != nil {
 		fmt.Println(err)
 		return fiber.ErrBadRequest
