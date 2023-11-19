@@ -183,13 +183,15 @@ func GetDocument(c *fiber.Ctx) error {
 	buf := &bytes.Buffer{}
 	io.Copy(buf, f)
 
+	f.Close()
+
 	contentType := http.DetectContentType(buf.Bytes())
+
 	c.Set("Content-Type", contentType)
 	c.Set("Content-Disposition", fmt.Sprintf("attachment; filename=%v", document.Document_name))
 	c.Set("Content-Transfer-Encoding", "binary")
 
-	err = c.SendStream(f)
-	f.Close()
+	err = c.Download(document.Document_name, path.Join(cwd, "../../documents", u1.String()))
 	return err
 }
 
