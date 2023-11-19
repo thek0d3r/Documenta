@@ -50,7 +50,7 @@ export default function UploadPage({params}){
                     <option value="certificat">Declarație de avere</option>
                 </select>
                     <button onClick={sendFormToServer}>
-
+                        Upload
                     </button>
             </div>
         </section>
