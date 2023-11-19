@@ -241,20 +241,25 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	cwd, _ := os.Getwd()
 
-	finalFile, err := os.OpenFile(path.Join(cwd, "../../documents", documentUUID.String()), os.O_CREATE|os.O_RDWR, 600)
-	if err != nil {
-		fmt.Println(err)
-		return fiber.ErrInternalServerError
-	}
-
-	_, err = io.Copy(finalFile, buffer)
-	if err != nil {
-		fmt.Println(err)
-		return fiber.ErrInternalServerError
-	}
-
-	finalFile.Close()
+	//finalFile, err := os.OpenFile(path.Join(cwd, "../../documents", documentUUID.String()), os.O_CREATE|os.O_RDWR, 600)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return fiber.ErrInternalServerError
+	//}
+	//
+	//_, err = io.CopyN(finalFile, buffer, file.Size)
+	//if err != nil {
+	//	if err != io.EOF {
+	//		fmt.Println(err)
+	//		return fiber.ErrInternalServerError
+	//	}
+	//
+	//}
+	//
+	//finalFile.Close()
 	buffer.Close()
+	
+	c.SaveFile(file, path.Join(cwd, "../../documents", documentUUID.String()))
 
 	return c.JSON(fiber.Map{
 		"document": document,

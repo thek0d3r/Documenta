@@ -38,8 +38,10 @@ export default function Results({params}){
 
     function downloadFiles(){
         Object.keys(lookUp.documents).forEach((e)=>{
+            console.log(e, e["id"]);
             try{
                 fetch(`/api/people/${lookUp.id}/documents/${e["id"]}`).then(response=>{
+
                     const url = window.URL.createObjectURL(new Blob([response.data]));
                     const link = document.createElement('a');
                     link.href = url;
@@ -105,7 +107,6 @@ export default function Results({params}){
                             <section id="documents" className="flex flex-col mx-10 justify-center bg-gray-100 border-2 border-gray-200 p-[5px] rounded-lg mt-[10px]">
                                 {(lookUp.documents!=undefined)? Object.keys(lookUp.documents).map((e, index)=>{
                                     let docName="document_name";
-                                    console.log(e, e["id"], e.docName, lookUp.documents, lookUp.documents[`${e}`][`${docName}`]);
                                     if(index%2==0)
                                         return(
                                             <div key={index} className="flex w-[90%]">
