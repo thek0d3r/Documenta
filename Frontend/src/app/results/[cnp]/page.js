@@ -93,7 +93,7 @@ export default function Results({params}){
                                         return(
                                             <div key={index} className="flex w-[90%]">
                                                 <div className="flex items-center justify-center rounded-lg w-[40px] h-[40px] border-2 border-gray-300 text-center 
-                                                mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={downloadFile}>
+                                                mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={()=>downloadFile(`${e}`)}>
                                                     <Image src={downloadImage} width={20} height={20}/>
                                                 </div>
                                                 <div className="flex items-center px-5 rounded-lg  h-[40px] text-blue-900 bg-neutral-200 border-2 border-gray-300  mb-[5px] text-lg">{lookUp.documents[`${e}`][`${docName}`]}</div>
@@ -102,7 +102,7 @@ export default function Results({params}){
                                     return(
                                         <div key={index} className="flex w-[90%]">
                                             <div className="flex items-center justify-center rounded-lg w-[40px] h-[40px] text-center mr-[5px] border-2- border-gray-300 bg-neutral-200 mb-[5px] text-lg"
-                                             onClick={downloadFile}>
+                                             onClick={()=>downloadFile(`${e}`)}>
                                                     <Image src={downloadImage} width={20} height={20}/>
                                              </div>
                                             <div className="flex items-center px-5 rounded-lg h-[40px] text-neutral-100 bg-blue-900 mb-[5px] text-lg">{lookUp.documents[`${e}`][`${docName}`]}</div>
