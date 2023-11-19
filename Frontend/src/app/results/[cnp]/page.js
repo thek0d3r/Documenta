@@ -72,8 +72,7 @@ export default function Results({params}){
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                console.log(lookUp.documents[docUUID]["document_name"]);
-                link.setAttribute('download', `${lookUp.documents.docUUID["document_name"]}`);
+                link.setAttribute('download', `${lookUp.documents[docUUID]["document_name"]}`);
                 link.click();
             })
         }
@@ -119,7 +118,7 @@ export default function Results({params}){
                             </section>
                         </div>
                         <div className="bg-blue-900 w-[20%] min-w-[300px] flex flex-col items-center justify-around rounded-lg p-[5px]">
-                            <span className="text-neutral-200 text-xl">Panou administrativ</span>
+                            <span className="text-neutral-200 text-2xl">Panou administrativ</span>
                             <div>
                                 <div className="flex flex-row text-neutral-200 items-center justify-center gap-[10px] hover:cursor-pointer hover:bg-neutral-200 hover:text-blue-900 rounded-lg p-[5px]" onClick={goToUpload}>
                                     <Image src={uploadImage} width={25} height={25} alt="Urcare fișier" className="mix-blend-color-burn"/>
