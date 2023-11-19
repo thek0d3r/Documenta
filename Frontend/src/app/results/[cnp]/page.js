@@ -72,6 +72,7 @@ export default function Results({params}){
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
+                console.log(lookUp.documents.docUUID);
                 link.setAttribute('download', `${lookUp.documents.docUUID["document_name"]}`);
                 link.click();
             })
