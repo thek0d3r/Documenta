@@ -97,12 +97,12 @@ export default function Results({params}){
                     <section id="documents" className="flex flex-col mx-10 justify-center">
                         {(lookUp.documents!=undefined)? Object.keys(lookUp.documents).map((e, index)=>{
                             let docName="document_name";
-                            console.log(e, e["id"], e.docName, lookUp.documents);
+                            console.log(e, e["id"], e.docName, lookUp.documents, lookUp.documents.e);
                             if(index%2==0)
                                 return(
                                     <div key={index} className="flex w-[90%]">
                                         <div className="flex items-center justify-center px-5 rounded-lg w-[40px] h-[40px] text-center mr-[5px] text-blue-900 bg-neutral-200 mb-[5px] text-lg">{index}</div>
-                                        <div className="flex items-center px-5 rounded-lg  h-[40px] text-blue-900 bg-neutral-200 mb-[5px] text-lg">{lookUp.documents?.e.docName}</div>
+                                        <div className="flex items-center px-5 rounded-lg  h-[40px] text-blue-900 bg-neutral-200 mb-[5px] text-lg">{lookUp.documents.e.docName}</div>
                                     </div>
                                 )
                             return(
