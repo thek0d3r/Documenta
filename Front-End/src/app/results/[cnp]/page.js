@@ -21,6 +21,14 @@ export default function Results({params}){
         // },
         // id:"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252",
         // "documents":{"cfc15005-af51-4632-9bd6-d5eca9f6d17b":{"id":"Y2ZjMTUwMDUtYWY1MS00NjMyLTliZDYtZDVlY2E5ZjZkMTdi","person":"VEVTVF9OQU1F","document_name":"TEST_HASH","document_hash":"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252"}}
+        // person:{
+        //     id:"NmNlYjRiN2EtNTMyNi00ZTRlLWFlMTEtOGY5ZDNkYmZlMjUy",
+        //     cnp:"5040525350048",
+        //     nume:"Szabo",
+        //     prenume:"Aleks"
+        // },
+        // id:"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252",
+        // "documents":{"cfc15005-af51-4632-9bd6-d5eca9f6d17b":{"id":"Y2ZjMTUwMDUtYWY1MS00NjMyLTliZDYtZDVlY2E5ZjZkMTdi","person":"VEVTVF9OQU1F","document_name":"TEST_HASH","document_hash":"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252"}}
     
     });
 
@@ -59,6 +67,7 @@ export default function Results({params}){
                 e.json().then((json)=>{
                     fetch(`/api/people/${json.id}/documents`).then(response=>{
                         response.json().then(json2=>{
+                            
                             setLookUp({
                                 id:json.id,
                                 person:json.person,
@@ -73,14 +82,12 @@ export default function Results({params}){
             })
         }
     },[])
-
-    function downloadFile(docUUID){
-        try{
-            fetch(`/api/people/${params.uuid}/documents/${docUUID}`);
-        } catch{
-            console.log('Error');
-        }
-    }
+    function updateSelect(e){
+        if(e.target.classList.has("selected"))
+            e.target.classList.value="flex items-center justify-center rounded-lg w-[40px] h-[40px] border-2 border-gray-300 text-center mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer"
+        else
+            e.target.classList.value="flex items-center justify-center rounded-lg w-[40px] h-[40px] text-center mr-[5px] bg-blue-900 mb-[5px] hover:cursor-pointer selected"
+    } 
         return(
             <div className="flex flex-row justify-start">
                 <div id="background-gradient" className='z-0'></div>
@@ -99,25 +106,19 @@ export default function Results({params}){
                                     if(index%2==0)
                                         return(
                                             <div key={index} className="flex w-[90%]">
-                                                <div key={index} className="flex items-center justify-center rounded-lg w-[40px] h-[40px] border-2 border-gray-300 text-center 
-                                                mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={()=>downloadFile(`${e}`)}>
-                                                    <Image src={downloadImage} width={20} height={20}/>
-                                                </div>
+                                                <div className="flex items-center justify-center rounded-lg w-[40px] h-[40px] border-2 border-gray-300 text-center 
+                                                mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={updateSelect}></div>
                                                 <div className="flex items-center px-5 rounded-lg  h-[40px] text-blue-900 bg-neutral-200 border-2 border-gray-300  mb-[5px] text-lg">{lookUp.documents[`${e}`][`${docName}`]}</div>
                                             </div>
                                         )
                                     return(
                                         <div key={index} className="flex w-[90%]">
-                                            <div key={index} className="flex items-center justify-center rounded-lg w-[40px] h-[40px] border-2 border-gray-300 text-center 
-                                                mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={downloadFile}>
-                                                    <Image src={downloadImage} width={20} height={20}/>
-                                                </div>
+                                            <div className="flex items-center justify-center rounded-lg w-[40px] h-[40px] text-center mr-[5px] bg-neutral-200 mb-[5px] text-lg"
+                                             onClick={(e)=>{console.log(e.target)}}></div>
                                             <div className="flex items-center px-5 rounded-lg h-[40px] text-neutral-100 bg-blue-900 mb-[5px] text-lg">{lookUp.documents[`${e}`][`${docName}`]}</div>
                                         </div>
                                     )
-                                }):[].map(()=>{
-                                    return (<></>)
-                                })}   
+                                }):false}   
                             </section>
                         </div>
                         <div className="bg-blue-900 w-[20%] min-w-[300px] flex flex-col items-center justify-around rounded-lg p-[5px]">
