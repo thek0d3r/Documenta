@@ -72,7 +72,7 @@ export default function Results({params}){
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                console.log(lookUp.documents);
+                console.log(lookUp.documents[docUUID]["document_name"]);
                 link.setAttribute('download', `${lookUp.documents.docUUID["document_name"]}`);
                 link.click();
             })
@@ -103,7 +103,7 @@ export default function Results({params}){
                                                 mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={()=>downloadFile(`${e}`)}>
                                                     <Image src={downloadImage} width={20} height={20}/>
                                                 </div>
-                                                <div className="flex items-center px-5 rounded-lg  h-[40px] text-blue-900 bg-neutral-200 border-2 border-gray-300  mb-[5px] text-lg">{lookUp.documents[`${e}`][`${docName}`]}</div>
+                                                <div className="flex items-center px-5 rounded-lg  h-[40px] min-w-[200px] text-blue-900 bg-neutral-200 border-2 border-gray-300  mb-[5px] text-lg">{lookUp.documents[`${e}`][`${docName}`]}</div>
                                             </div>
                                         )
                                     return(
@@ -112,7 +112,7 @@ export default function Results({params}){
                                                 mr-[5px] bg-neutral-200 mb-[5px] hover:cursor-pointer" onClick={()=>downloadFile(`${e}`)}>
                                                     <Image src={downloadImage} width={20} height={20}/>
                                                 </div>
-                                            <div className="flex items-center px-5 rounded-lg h-[40px] text-neutral-100 bg-blue-900 mb-[5px] text-lg">{lookUp.documents[`${e}`][`${docName}`]}</div>
+                                            <div className="flex items-center px-5 rounded-lg h-[40px] text-neutral-100 min-w-[200px] bg-blue-900 mb-[5px] text-lg">{lookUp.documents[`${e}`][`${docName}`]}</div>
                                         </div>
                                     )
                                 }):false}   
