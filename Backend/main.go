@@ -16,6 +16,8 @@ import (
 func main() {
 	app := fiber.New()
 
+	app.Server().MaxRequestBodySize = 50 * 1024 * 1024
+
 	app.Get("/swagger/*", swagger.HandlerDefault)
 
 	app.Get("/swagger/*", swagger.New())
