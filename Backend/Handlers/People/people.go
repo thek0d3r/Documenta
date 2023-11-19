@@ -177,6 +177,7 @@ func GetDocument(c *fiber.Ctx) error {
 	f, err := os.Open(path.Join(cwd, "../../documents", u1.String()))
 	defer f.Close()
 	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrInternalServerError
 	}
 
