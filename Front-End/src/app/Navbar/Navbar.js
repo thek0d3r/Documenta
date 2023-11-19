@@ -49,7 +49,7 @@ export default function Navbar() {
         </div>
         <div id="profile-button" className="flex flex-col justify-center align-center rounded-full relative left-[3%] w-[100px] h-[100px] top-[-50%] z-2 border-8 border-neutral-200" onMouseOver={showUserMenu} onMouseLeave={hideUserMenu}>
           <UserMenu menu={showMenu} isLoggedIn={isLoggedIn}/>
-          <div id="profile-picture" className={"hover:cursor-pointer w-[200px] h-[200px]"}>
+          <div id="profile-picture" className={"hover:cursor-pointer h-[200px]"}>
             <Image width={200} height={200} src={profilePic} alt="Profile picture" className="rounded-full absolute top-0"/>
           </div>
         </div>
