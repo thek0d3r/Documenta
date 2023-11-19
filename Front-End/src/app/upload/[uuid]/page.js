@@ -19,7 +19,6 @@ export default function UploadPage({params}){
         const formData = new FormData();
         formData.append('fileUpload', file);
         formData.append('person_id', params.uuid);
-        console.log(formData);
         try {
             await axios.post(`/api/people/${params.uuid}/document`, formData, {
                 headers: {
