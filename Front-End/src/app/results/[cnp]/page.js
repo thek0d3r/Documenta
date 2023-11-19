@@ -13,23 +13,7 @@ import { useEffect, useState } from "react";
 export default function Results({params}){
     const router=useRouter();
     const [lookUp, setLookUp]=useState({
-        // person:{
-        //     id:"NmNlYjRiN2EtNTMyNi00ZTRlLWFlMTEtOGY5ZDNkYmZlMjUy",
-        //     cnp:"5040525350048",
-        //     nume:"Szabo",
-        //     prenume:"Aleks"
-        // },
-        // id:"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252",
-        // "documents":{"cfc15005-af51-4632-9bd6-d5eca9f6d17b":{"id":"Y2ZjMTUwMDUtYWY1MS00NjMyLTliZDYtZDVlY2E5ZjZkMTdi","person":"VEVTVF9OQU1F","document_name":"TEST_HASH","document_hash":"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252"}}
-        // person:{
-        //     id:"NmNlYjRiN2EtNTMyNi00ZTRlLWFlMTEtOGY5ZDNkYmZlMjUy",
-        //     cnp:"5040525350048",
-        //     nume:"Szabo",
-        //     prenume:"Aleks"
-        // },
-        // id:"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252",
-        // "documents":{"cfc15005-af51-4632-9bd6-d5eca9f6d17b":{"id":"Y2ZjMTUwMDUtYWY1MS00NjMyLTliZDYtZDVlY2E5ZjZkMTdi","person":"VEVTVF9OQU1F","document_name":"TEST_HASH","document_hash":"6ceb4b7a-5326-4e4e-ae11-8f9d3dbfe252"}}
-    
+
     });
 
     function validareCNP(cnp){
