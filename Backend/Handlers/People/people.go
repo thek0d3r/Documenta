@@ -197,6 +197,7 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	u1, err := uuid.Parse(personStr)
 	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 	personID, _ := u1.MarshalBinary()
@@ -221,6 +222,7 @@ func UploadDocument(c *fiber.Ctx) error {
 
 	_, err = database.DB.Query("INSERT INTO documents (id, document_hash, document_name, person) VALUES (cast(? AS UUID), ?, ?, cast(? AS UUID))", documentID, document.Document_hash, document.Document_name, personID)
 	if err != nil {
+		fmt.Println(err)
 		return fiber.ErrBadRequest
 	}
 
