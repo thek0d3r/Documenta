@@ -20,7 +20,7 @@ export default function UploadPage({params}){
         formData.append('fileUpload', file);
         console.log(formData);
         try {
-            await axios.post(`/api/people/${params.uuid}/document/`, formData, {
+            await axios.post(`/api/people/${params.uuid}/document`, formData, {
                 headers: {
                     'Content-Type': "multipart/form-data",
                 },

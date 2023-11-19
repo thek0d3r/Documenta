@@ -51,10 +51,10 @@ export default function Results({params}){
         if(validareCNP(params.cnp)==false)
             router.replace('/');
         else{
-            const res=fetch(`https://documenta.cyberdojotm.ro/api/people/${params.cnp}`);
+            const res=fetch(`/api/people/${params.cnp}`);
             res.then((e)=>{
                 e.json().then((json)=>{
-                    fetch(`https://documenta.cyberdojotm.ro/api/people/${json.id}/documents`).then(response=>{
+                    fetch(`/api/people/${json.id}/documents`).then(response=>{
                         response.json().then(json2=>{
                             setLookUp({
                                 id:json.id,
