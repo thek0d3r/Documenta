@@ -191,7 +191,7 @@ func GetDocument(c *fiber.Ctx) error {
 	c.Set("Content-Disposition", fmt.Sprintf("attachment; filename=%v", document.Document_name))
 	c.Set("Content-Transfer-Encoding", "binary")
 
-	err = c.Download(document.Document_name, path.Join(cwd, "../../documents", u1.String()))
+	err = c.Download(path.Join(cwd, "../../documents", u1.String()), document.Document_name)
 	return err
 }
 
