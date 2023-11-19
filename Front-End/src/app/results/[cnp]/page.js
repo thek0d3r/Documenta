@@ -40,7 +40,7 @@ export default function Results({params}){
     }
     
     function goToUpload(){
-        router.push("/upload"); 
+        router.push(`/upload/${lookUp["id"]}`); 
       }    
 
     function downloadFiles(){

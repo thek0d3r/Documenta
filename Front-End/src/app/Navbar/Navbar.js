@@ -9,9 +9,9 @@ import navbar from "./navbar.module.css"
 import Link from "next/link"
 
 function UserMenu({menu, isLoggedIn}){
-  const [options, setOptions]=(isLoggedIn)? useState(["Profil", "Setări", "Delogare"]) : useState(["Logare", "Auth"]);
-  const [paths, setPaths]=(isLoggedIn)? useState(["/profile", "/settings", "/"]) : useState(["/login", "/authenticate"]);
-  const [menuHeight, setMenuHeight] = isLoggedIn? useState("bg-neutral-200 h-[150px]"):useState("bg-neutral-200 h-[120px]");
+  const [options, setOptions]=(isLoggedIn)? useState(["Profil", "Setări", "Delogare"]) : useState(["Logare"]);
+  const [paths, setPaths]=(isLoggedIn)? useState(["/profile", "/settings", "/"]) : useState(["/login"]);
+  const [menuHeight, setMenuHeight] = isLoggedIn? useState("bg-neutral-200 h-[150px]"):useState("bg-neutral-200 h-[100px]");
   if(menu===true)
   return(
           <ul id={navbar.options} className={menuHeight}>
