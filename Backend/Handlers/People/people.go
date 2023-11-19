@@ -241,7 +241,7 @@ func UploadDocument(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	_, err = io.Copy(finalFile, buffer)
+	_, err = io.CopyN(finalFile, buffer, file.Size)
 	if err != nil {
 		fmt.Println(err)
 		return fiber.ErrInternalServerError
