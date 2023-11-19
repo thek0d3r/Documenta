@@ -5,7 +5,7 @@ import Navbar from "../../Navbar/Navbar"
 import backIcon from '../../../../public/back.png'
 import Link from "next/link";
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function UploadPage({params}){
 
@@ -15,21 +15,29 @@ export default function UploadPage({params}){
         setFile(e.target.files[0]);
         console.log(e.target.files[0]);
     }
-    async function sendFormToServer(){
+
+    async function sendFormToServer() {
         const formData = new FormData();
-        formData.append('fileUpload', file);
-        formData.append('person_id', params.uuid);
+        formData.append("fileUpload", file);
+        formData.append("person_id", params.uuid);
+
         try {
-            await axios.post(`/api/people/${params.uuid}/document`, formData, {
-                headers: {
-                    'Content-Type': "multipart/form-data",
-                },
+            const response = await fetch(`/api/people/${params.uuid}/document`, {
+                method: "POST",
+                body: formData,
             });
-            console.log('File uploaded successfully');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            console.log("File uploaded successfully");
+            
         } catch (error) {
-            console.error('Error uploading file:', error);
+            console.error("Error uploading file:", error);
         }
-    };
+    }
+
     return(
         <section className="w-[100vw] h-[100vh] flex flex-col items-center justify-center gap-[20px]">
             <div id="background-gradient-2" className='z-0 invert'></div>
