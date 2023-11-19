@@ -5,11 +5,13 @@ import Navbar from "../../Navbar/Navbar"
 import backIcon from '../../../../public/back.png'
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function UploadPage({params}){
 
     const [file, setFile] = useState(null);
+    const router = useRouter();
     
     function handleFile(e){
         setFile(e.target.files[0]);
@@ -32,6 +34,7 @@ export default function UploadPage({params}){
             }
 
             console.log("File uploaded successfully");
+            router.replace('/');
             
         } catch (error) {
             console.error("Error uploading file:", error);
